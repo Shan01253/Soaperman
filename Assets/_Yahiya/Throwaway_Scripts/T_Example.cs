@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Yahiya_Throwaways
 {
-    public class T_Movement : MonoBehaviour
+    public class T_Example : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
