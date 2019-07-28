@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Yahiya/Yahiya_TestScene.unity
+    guid: 90900dab162cd1c428c73e6d3f09c37a
   m_configObjects: {}
