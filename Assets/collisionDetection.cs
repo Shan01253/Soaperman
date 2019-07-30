@@ -67,8 +67,9 @@ public class collisionDetection : MonoBehaviour
 
         meshObject.transform.parent = null;
         meshObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Sprites/Default"));
-       
 
+        meshObject.tag = "soapmesh";
+        meshObject.AddComponent<MeshCollider>();
         meshfilter = meshObject.AddComponent<MeshFilter>();
         meshfilter.sharedMesh = new Mesh();
         
@@ -89,7 +90,7 @@ public class collisionDetection : MonoBehaviour
 
     }
 
-    IEnumerator fadeMeshOverTime(MeshFilter meshfilter)
+    IEnumerator fadeMeshOverTime(MeshFilter a)
     {
         for (float i = 1; i >= 0; i -= 1f/20)
         {
@@ -98,9 +99,9 @@ public class collisionDetection : MonoBehaviour
             {
                 return c * i;
             }
-            meshfilter.sharedMesh.colors = System.Array.ConvertAll<Color, Color>(meshfilter.sharedMesh.colors, scaleColor);
+            a.sharedMesh.colors = System.Array.ConvertAll<Color, Color>(a.sharedMesh.colors, scaleColor);
         }
-        Destroy(meshfilter.gameObject);
+        Destroy(a.gameObject);
 
     }
 

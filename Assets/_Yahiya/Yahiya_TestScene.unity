@@ -5188,7 +5188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intersectionDeltaDistance: 0
   IntersectionPolygonColor: {r: 0.21568629, g: 0.79215693, b: 0.9960785, a: 0.63529414}
-  deltaDistance: 0.4
+  deltaDistance: 0.01
 --- !u!1 &1895557830
 GameObject:
   m_ObjectHideFlags: 0
