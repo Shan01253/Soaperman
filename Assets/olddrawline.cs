@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawLine : MonoBehaviour
+public class oldDrawLine : MonoBehaviour
 {
 
     private LineRenderer line;
@@ -10,8 +10,6 @@ public class DrawLine : MonoBehaviour
     public List<Vector3> pointsList;
     private Vector3 mousePos;
     public Material mat;
-
-    public float deltaDistance = 0.1f;
     struct myLine
     {
         public Vector3 StartPoint;
@@ -33,16 +31,13 @@ public class DrawLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastPosition = transform.position;            
+
     }
     public int maxVertices = 100000;
     // Update is called once per frame
-
-    Vector3 lastPosition;
-
-
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             isMousePressed = true;
@@ -64,25 +59,15 @@ public class DrawLine : MonoBehaviour
                 {
                     pointsList.RemoveAt(0);
 
-                    line.SetPositions(pointsList.ToArray());
                 }
-
                 pointsList.Add(mousePos);
                 line.SetVertexCount(pointsList.Count);
-                line.SetPosition(pointsList.Count - 1, mousePos);
-
-
+                line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);
                 if (isLineCollide())
                 {
-                    //Debug.Log(Vector2.Distance(lastPosition, mousePos));
-                    if (Vector2.Distance(lastPosition, mousePos) > deltaDistance)
-                    {
-                        lastPosition = mousePos;
-
-                        tomark.Enqueue(mousePos);
-                        line.SetColors(Color.red, Color.red);
-                    }
-
+                    tomark.Enqueue(mousePos);
+                    isMousePressed = false;
+                    line.SetColors(Color.red, Color.red);
                 }
             }
         }
@@ -91,14 +76,14 @@ public class DrawLine : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        foreach(var v in tomark)
+        foreach (var v in tomark)
         {
             Gizmos.DrawSphere(v, 0.1f);
         }
     }
     private bool isLineCollide()
     {
-        if(pointsList.Count < 2)
+        if (pointsList.Count < 2)
         {
             return false;
         }
