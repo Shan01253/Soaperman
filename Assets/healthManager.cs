@@ -9,7 +9,7 @@ public class healthManager : MonoBehaviour
 
     public void Damage(float percentAmount)
     {
-        if (currentHealthPercent - percentAmount < 0)
+        if (currentHealthPercent - percentAmount <= 0)
         {
             if (remainingHearts == 0)
             {
@@ -19,6 +19,7 @@ public class healthManager : MonoBehaviour
             {
                 currentHealthPercent = 1;
                 remainingHearts--;
+                heartbar.Instance.DepleteHeart();
             }
 
         }
@@ -31,5 +32,13 @@ public class healthManager : MonoBehaviour
     public void Die()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Damage(.51f);
+        //}
     }
 }

@@ -7,12 +7,11 @@ using UnityEngine;
 public class collisionDetection : MonoBehaviour
 {
     public float intersectionDeltaDistance = 0.01f;
-    MeshFilter meshfilter;
     MeshFilter meshfilter_reverse;
     float timeToDeleteIntersections = 2;
     TrailRenderer rend;
     Vector3 lastPosition;
-
+    public Shader shader;
     public Color IntersectionPolygonColor;
 
     Vector2 lastIntersection1;
@@ -66,11 +65,11 @@ public class collisionDetection : MonoBehaviour
         GameObject meshObject = new GameObject("mesh");       
 
         meshObject.transform.parent = null;
-        meshObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Sprites/Default"));
+        meshObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(shader);
 
         meshObject.tag = "soapmesh";
         meshObject.AddComponent<MeshCollider>();
-        meshfilter = meshObject.AddComponent<MeshFilter>();
+        MeshFilter meshfilter = meshObject.AddComponent<MeshFilter>();
         meshfilter.sharedMesh = new Mesh();
         
         yield return null;
@@ -80,7 +79,7 @@ public class collisionDetection : MonoBehaviour
         {
             vertexcolors[j] = IntersectionPolygonColor;
         }
-        //meshfilter.sharedMesh.Clear();
+        meshfilter.sharedMesh.Clear();
         meshfilter.sharedMesh.vertices = polygonPositions.toVector3Array();
         meshfilter.sharedMesh.colors = vertexcolors;
         meshfilter.sharedMesh.triangles = (new Triangulator(polygonPositions)).Triangulate();
@@ -97,7 +96,7 @@ public class collisionDetection : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
              Color scaleColor( Color c)
             {
-                return c * i;
+                return new Color(c.r, c.g, c.b, c.a * i);
             }
             a.sharedMesh.colors = System.Array.ConvertAll<Color, Color>(a.sharedMesh.colors, scaleColor);
         }
