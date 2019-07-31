@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - soapmesh
+  - enemy
   layers:
   - Default
   - TransparentFX
