@@ -18,6 +18,8 @@ public class collisionDetection : MonoBehaviour
     Vector2 lastIntersection2;
     int intersectIndex;
 
+    float startingPercentDamageToEnemies = 0.5f;
+
     Queue<Vector2> tomark = new Queue<Vector2>();
     public float deltaDistance = 0.1f;
     // Start is called before the first frame update
@@ -68,7 +70,8 @@ public class collisionDetection : MonoBehaviour
         meshObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(shader);
 
         meshObject.tag = "soapmesh";
-        meshObject.AddComponent<MeshCollider>();
+
+
         MeshFilter meshfilter = meshObject.AddComponent<MeshFilter>();
         meshfilter.sharedMesh = new Mesh();
         
@@ -85,20 +88,37 @@ public class collisionDetection : MonoBehaviour
         meshfilter.sharedMesh.triangles = (new Triangulator(polygonPositions)).Triangulate();
         meshfilter.sharedMesh.RecalculateNormals();
 
+        meshObject.AddComponent<meshDamageEnemy>();
+        var coll = meshObject.AddComponent<PolygonCollider2D>();
+        coll.points = polygonPositions;
+        coll.isTrigger = true;
+          
         StartCoroutine(fadeMeshOverTime(meshfilter));
 
     }
 
     IEnumerator fadeMeshOverTime(MeshFilter a)
     {
-        for (float i = 1; i >= 0; i -= 1f/20)
+        meshDamageEnemy m = a.GetComponent<meshDamageEnemy>();
+        for (float i = 1; i >= 0; i -= 1f/15)
         {
+            m.percentDamageDealt = i* startingPercentDamageToEnemies;
             yield return new WaitForSeconds(0.1f);
              Color scaleColor( Color c)
             {
                 return new Color(c.r, c.g, c.b, c.a * i);
             }
             a.sharedMesh.colors = System.Array.ConvertAll<Color, Color>(a.sharedMesh.colors, scaleColor);
+            
+
+        }
+        if (m.combo > 0)
+        {
+            BasicScoring.Instance.increaseCombo(m.combo);
+        }
+        else
+        {
+            BasicScoring.Instance.resetCombo();
         }
         Destroy(a.gameObject);
 

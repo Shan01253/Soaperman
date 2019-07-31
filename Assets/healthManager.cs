@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class healthManager : MonoBehaviour
 {
+    Rigidbody2D rb;
+    public float enemyRepulsionFactor = 1;
     public float currentHealthPercent = 1;
     public float remainingHearts = 3;
-
+    public float damageFromEnemies = 1;
+    bool canBeDamaged = true;
+    SpriteRenderer sprite;
     public void Damage(float percentAmount)
     {
         if (currentHealthPercent - percentAmount <= 0)
         {
-            if (remainingHearts == 0)
+            currentHealthPercent = 1;
+            remainingHearts--;
+            if (remainingHearts <= 0)
             {
                 Die();
             }
-            else
-            {
-                currentHealthPercent = 1;
-                remainingHearts--;
-                heartbar.Instance.DepleteHeart();
-            }
+            heartbar.Instance.DepleteHeart();
+
 
         }
         else
@@ -33,12 +38,36 @@ public class healthManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
+    private void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+    }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Damage(.51f);
-        //}
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        if (canBeDamaged && collision.gameObject.CompareTag("enemy"))
+        {
+            rb.AddForce(-new Vector2(collision.transform.position.x, collision.transform.position.y)*enemyRepulsionFactor, ForceMode2D.Impulse);
+            Damage(damageFromEnemies);
+        }
+        StartCoroutine(invulnerability());
+    }
+
+    IEnumerator invulnerability()
+    {
+        canBeDamaged = false;
+        for (int i = 0; i < 10; i++)
+        {
+            sprite.enabled = false;
+            yield return new WaitForSeconds(0.05f);
+            sprite.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+        }
+        canBeDamaged = true;
     }
 }
