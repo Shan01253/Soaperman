@@ -228,7 +228,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -249,7 +249,7 @@ MonoBehaviour:
   EnemyDirection: 2
   PauseInterval: 1
   WalkInterval: 1
-  EnemySpeed: 0.25
+  EnemySpeed: 4
 --- !u!212 &1087373572
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1e1157d31819db9b3a5caf159ab04cff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ded81061c98422429e1fd82ca84ce6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
