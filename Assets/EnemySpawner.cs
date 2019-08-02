@@ -17,10 +17,10 @@ public class EnemySpawner : MonoBehaviour
     {
         currentAmountEnemies = enemiesAtATime;
         //TODO remember to implement choosing enemy positions
-        for (int i = 0; i < enemiesAtATime; i++)
+        for (int i = 0; i < currentAmountEnemies; i++)
         {
             enemy e = ObjectPooler.Instance.SpawnFromPool("enemy", 
-                new Vector2(UnityEngine.Random.Range(-6, 6), UnityEngine.Random.Range(-4, 8)), 
+                new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5)), 
                 Quaternion.identity).GetComponent<enemy>();
             e.onKillListeners += incKillCount;
            EB_BackAndForth EB = e.GetComponent<EB_BackAndForth>();
@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (killcount >= enemiesAtATime)
+        if (killcount >= currentAmountEnemies)
         {
             currentAmountEnemies++;
             killcount = 0;
