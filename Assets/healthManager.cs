@@ -36,7 +36,7 @@ public class healthManager : MonoBehaviour
 
     public void Die()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     private void Start()
     {

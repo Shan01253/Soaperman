@@ -77,6 +77,10 @@ public class BasicScoring : MonoBehaviour
     {
         CurrentScore += amount + amount * combo;
     }
+    public void addTimeToClock(float amount)
+    {
+        totalTime += amount;
+    }
     public void StartClock()
     {
         clockStarted = true;

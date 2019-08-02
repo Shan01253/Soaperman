@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Sha/MainMennu.unity
+    path: Assets/Official Builds/MainMennu.unity
     guid: 01e6b2728641cef47a340719fc3fc2df
   - enabled: 1
     path: Assets/_Yahiya/Yahiya_TestScene.unity
