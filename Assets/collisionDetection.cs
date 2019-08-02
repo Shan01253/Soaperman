@@ -67,7 +67,9 @@ public class collisionDetection : MonoBehaviour
         GameObject meshObject = new GameObject("mesh");       
 
         meshObject.transform.parent = null;
-        meshObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(shader);
+        MeshRenderer renderer = meshObject.AddComponent<MeshRenderer>();
+        renderer.sharedMaterial = new Material(shader);
+        renderer.sortingOrder = 2;
 
         meshObject.tag = "soapmesh";
 
@@ -83,6 +85,7 @@ public class collisionDetection : MonoBehaviour
             vertexcolors[j] = IntersectionPolygonColor;
         }
         meshfilter.sharedMesh.Clear();
+        
         meshfilter.sharedMesh.vertices = polygonPositions.toVector3Array();
         meshfilter.sharedMesh.colors = vertexcolors;
         meshfilter.sharedMesh.triangles = (new Triangulator(polygonPositions)).Triangulate();
