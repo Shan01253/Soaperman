@@ -18,7 +18,7 @@ public class enemy : MonoBehaviour
     public void kill()
     {
         onKillListeners?.Invoke();
-        BasicScoring.Instance.addTimeToClock(5);
+        BasicScoring.Instance.addTimeToClock(3);
         isDead = true;
         healthPercentage = 1;
         //Debug.Log("dead?");

@@ -1,6 +1,7 @@
 ﻿using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     private void Start()
     {
-        Play("soapy");
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Play("soapy");
+        }
+
     }
     // Start is called before the first frame update
     void Awake()
@@ -51,6 +56,17 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.Play();
+    }
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found");
+            return;
+        }
+
+        s.source.Stop();
     }
 }
 

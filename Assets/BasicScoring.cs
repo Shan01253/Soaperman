@@ -91,7 +91,7 @@ public class BasicScoring : MonoBehaviour
     {
         clockStarted = false;
         updateHighscore();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void updateHighscore()
     {
